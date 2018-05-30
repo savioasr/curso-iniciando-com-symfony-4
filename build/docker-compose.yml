@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+
+        schoolofnet:
+                build: .
+                expose:
+                        - "80"
+                ports:
+                        - "80:80"
+                container_name: schoolofnet
+                volumes:
+                        - ../.:/var/www/html/
+                links:
+                        - mysqlschoolofnet
+        mysqlschoolofnet:
+                image: mysql:5.7
+                container_name: mysqlschoolofnet
+                environment:
+                        MYSQL_ROOT_PASSWORD: schoolofnet
+                        MYSQL_DATABASE: schoolofnet
+                volumes:
+                        - ../mysql:/var/lib/mysql
